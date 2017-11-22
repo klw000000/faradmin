@@ -3,6 +3,8 @@ package org.bgadmin.system.action;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SystemAction {
 
     @RequestMapping("/login")
-    public ModelAndView login(@RequestParam(value = "name", required = false, defaultValue = "Spring") String name) {
+    public ModelAndView login(HttpServletRequest request) {
  
         ModelAndView mv = new ModelAndView("sys/login");//指定视图
         //mv.addObject("message", message);
@@ -30,7 +32,7 @@ public class SystemAction {
     }
     
     @RequestMapping("/index")
-    public ModelAndView index(@RequestParam(value = "name", required = false, defaultValue = "Spring") String name) {
+    public ModelAndView index(HttpServletRequest request) {
  
         ModelAndView mv = new ModelAndView("sys/index");//指定视图
         //mv.addObject("message", message);

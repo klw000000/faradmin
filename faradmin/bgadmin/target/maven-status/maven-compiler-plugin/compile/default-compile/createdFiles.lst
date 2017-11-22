@@ -1,6 +1,0 @@
-org\bgadmin\tpl\OrderOPMessage.class
-org\bgadmin\HelloSpringController.class
-org\bgadmin\SnowflakeIdWorker.class
-org\bgadmin\tpl\TestFreemarker.class
-org\bgadmin\system\action\SystemAction.class
-org\bgadmin\tpl\view\FreeMarkerViewUtil.class
