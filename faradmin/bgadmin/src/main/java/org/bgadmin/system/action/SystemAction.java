@@ -42,6 +42,7 @@ public class SystemAction {
         map.put("login", "login");
         mv.addObject("sys", map);
         mv.addObject("CREATE_HTML",false);
+        System.out.println(request.getParameter("ss"));
         return mv;
     }
 }
