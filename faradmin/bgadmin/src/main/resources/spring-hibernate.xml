@@ -44,7 +44,7 @@
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>  
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>  
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>  
-  
+  				<prop key="connection.autocommit">true</prop>
                 <!-- 开启二级缓存 ehcache -->  
                 <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>  
                 <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>  
@@ -54,7 +54,7 @@
             </props>  
         </property>  
         <!-- 扫描hibernate注解配置的entity -->  
-        <property name="packagesToScan" value="org.andy.work.entity" />  
+        <property name="packagesToScan" value="org.bgadmin.common.db.*,org.bgadmin.system.*" />  
     </bean>  
   
     <!-- 配置事务管理器 -->  
@@ -70,14 +70,14 @@
             <tx:method name="insert*" propagation="REQUIRED" />  
             <tx:method name="update*" propagation="REQUIRED" />  
             <tx:method name="delete*" propagation="REQUIRED" />  
-  
+  			<tx:method name="save*" propagation="REQUIRED" read-only="false"/> 
             <tx:method name="get*" propagation="SUPPORTS" read-only="true" />  
             <tx:method name="find*" propagation="SUPPORTS" read-only="true" />  
             <tx:method name="select*" propagation="SUPPORTS" read-only="true" />  
             <tx:method name="load*" propagation="SUPPORTS" read-only="true" />  
   
             <!-- 其他采用默认事务方式 -->  
-            <tx:method name="*" />  
+            <tx:method name="*" propagation="REQUIRED" read-only="false" />  
   
         </tx:attributes>  
     </tx:advice>  
@@ -86,7 +86,7 @@
     <aop:config>  
         <!-- 配置切入点 -->  
         <aop:pointcut id="transactionPointcut"  
-            expression="execution(* org.andy.work.service..*Impl.*(..))" />  
+            expression="execution(* org.bgadmin.system.*.*.*(..))" />  
         <!-- 指定在txAdvice切入点应用txAdvice事务增强处理 -->  
         <aop:advisor pointcut-ref="transactionPointcut"  
             advice-ref="transactionAdvice" />  

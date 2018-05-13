@@ -1,15 +1,16 @@
 package org.bgadmin.system.action;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bgadmin.system.dao.UserDao;
+import org.bgadmin.system.entity.TestModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 系统主控制器
@@ -19,30 +20,47 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/sys")
 public class SystemAction {
 
-    @RequestMapping("/login")
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
- 
-        ModelAndView mv = new ModelAndView("sys/login");//指定视图
-        //mv.addObject("message", message);
-        Map<String,String> map=new HashMap<String,String>();
-        map.put("title", "admin Manger login");
-        map.put("login", "login");
-        mv.addObject("sys", map);
-        mv.addObject("CREATE_HTML",false);
-        return mv;
+	@Autowired
+	private UserDao userDao;
+
+    
+    @RequestMapping("/list")
+    @ResponseBody
+    public List<TestModel> list(TestModel t, HttpServletRequest request, HttpServletResponse response) {
+    	
+       return userDao.list(t);
     }
     
-    @RequestMapping("/index")
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
- 
-        ModelAndView mv = new ModelAndView("sys/index");//指定视图
-        //mv.addObject("message", message);
-        Map<String,String> map=new HashMap<String,String>();
-        map.put("title", "admin Manger login");
-        map.put("login", "login");
-        mv.addObject("sys", map);
-        mv.addObject("CREATE_HTML",false);
-        System.out.println(request.getParameter("ss"));
-        return mv;
+    //读取
+    @RequestMapping("/load")
+    @ResponseBody
+    public TestModel load(HttpServletRequest request, HttpServletResponse response) {
+    	
+       TestModel tt= userDao.get("aa");
+       return tt;
+    }
+    
+  //增加
+    @RequestMapping("/add")
+    @ResponseBody
+    public TestModel add(TestModel m, HttpServletRequest request, HttpServletResponse response) {
+    	
+       m.setUserName("丁伊雪");
+       userDao.add(m);
+       return m;
+    }
+    
+    //删除
+    @RequestMapping("/del")
+    @ResponseBody
+    public boolean del(TestModel t, HttpServletRequest request, HttpServletResponse response){
+    	return userDao.del(t.getId());
+    }
+    
+    //修改
+    @RequestMapping("/update")
+    @ResponseBody
+    public boolean update(TestModel t, HttpServletRequest request, HttpServletResponse response){
+    	return userDao.update(t);
     }
 }

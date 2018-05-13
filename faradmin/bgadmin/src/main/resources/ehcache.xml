@@ -5,8 +5,8 @@
      <defaultCache  
             maxElementsInMemory="1000"  
             eternal="false"  
-            timeToIdleSeconds="120"  
-            timeToLiveSeconds="120"  
+            timeToIdleSeconds="1"  
+            timeToLiveSeconds="1"  
             maxElementsOnDisk="1000000"  
             overflowToDisk="true"   
             memoryStoreEvictionPolicy="LRU">  
